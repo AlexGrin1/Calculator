@@ -98,11 +98,13 @@ div[class="but"]:hover {
   background-color: rgb(8, 167, 8);
   color: white;
   cursor: pointer;
+  transition: 0.2s;
 }
 div[class="operator"]:hover {
   background-color: rgb(223, 139, 29);
   color: white;
   cursor: pointer;
+  transition: 0.2s;
 }
 div[class="operator"]:active,
 div[class="but"]:active {
