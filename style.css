@@ -94,20 +94,22 @@ body {
   align-items: center;
   box-shadow: 0 0 5px black;
 }
-div[class="but"]:hover {
+li[class="but"]:hover {
   background-color: rgb(8, 167, 8);
   color: white;
   cursor: pointer;
   transition: 0.2s;
 }
-div[class="operator"]:hover {
+div[class="operator"]:hover,
+li[class="operator"]:hover {
   background-color: rgb(223, 139, 29);
   color: white;
   cursor: pointer;
   transition: 0.2s;
 }
 div[class="operator"]:active,
-div[class="but"]:active {
+li[class="operator"]:active,
+li[class="but"]:active {
   box-shadow: 0 0 0 rgb(2, 2, 2);
 }
 
