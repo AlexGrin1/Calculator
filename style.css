@@ -111,18 +111,17 @@ div[class="but"]:active {
   box-shadow: 0 0 0 rgb(2, 2, 2);
 }
 
-@media (max-width: 400px) {
+@media (max-width: 600px) {
   * {
     font-size: 15px;
     border-radius: 3px;
   }
   body {
-    max-width: 250px;
-
+    max-width: 150px;
     margin: 5vh auto;
   }
   .screen {
-    height: 50px;
+    height: 10px;
     margin: 0 0 15px;
     background-color: rgb(0, 0, 0);
   }
@@ -149,5 +148,10 @@ div[class="but"]:active {
     grid-template-rows: repeat(3, 20px);
     column-gap: 5px;
     row-gap: 10px;
+  }
+}
+@media (max-width: 400px) {
+  .calc {
+    padding: 10px;
   }
 }
