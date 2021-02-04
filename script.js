@@ -2,7 +2,7 @@ const buttons = document.querySelector(".calc");
 const screen = document.querySelector(".scr");
 let arrayNumbers = [];
 let arrayOperators = [];
-let result = 0;
+let result;
 console.log(buttons);
 buttons.addEventListener("click", (event) => {
   if (event.target.tagName === "LI") {
@@ -28,7 +28,8 @@ buttons.addEventListener("click", (event) => {
     console.log(typeof result);
   }
   if (event.target.id === "cleanC" || event.target.id === "cleanCe") {
-    result = 0;
+    result = null;
     screen.innerHTML = result;
   }
+  console.log(screen.innerHTML);
 });
