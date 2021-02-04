@@ -3,7 +3,7 @@ const screen = document.querySelector(".scr");
 let arrayNumbers = [];
 let arrayOperators = [];
 let result;
-console.log(buttons);
+
 buttons.addEventListener("click", (event) => {
   if (event.target.tagName === "LI") {
     if (event.target.className === "operator") {
@@ -14,22 +14,27 @@ buttons.addEventListener("click", (event) => {
       arrayNumbers.push(event.target.innerHTML);
       screen.innerHTML += event.target.innerHTML;
     }
-
-    console.log("id  ----" + event.target.id);
-    console.log(arrayNumbers);
-    console.log(arrayOperators);
-    console.log(event.target.innerHTML);
   }
   if (event.target.id === "itemEnd") {
-    console.log("привет");
     result = eval(screen.innerHTML);
     screen.innerHTML = result;
-    console.log(result);
-    console.log(typeof result);
   }
   if (event.target.id === "cleanC" || event.target.id === "cleanCe") {
     result = null;
     screen.innerHTML = result;
   }
-  console.log(screen.innerHTML);
+});
+
+// считывание клавишь клавиатуры
+document.addEventListener("keyup", function (event) {
+  if (event.key != "Enter" && event.key != "Delete")
+    screen.innerHTML += event.key;
+  if (event.key === "Enter") {
+    result = eval(screen.innerHTML);
+    screen.innerHTML = result;
+  }
+  if (event.key === "Delete") {
+    result = null;
+    screen.innerHTML = result;
+  }
 });
