@@ -24,7 +24,7 @@ buttons.addEventListener("click", (event) => {
     screen.innerHTML = result;
   }
 });
-// считывание клавишь клавиатуры
+// считывание клавиш клавиатуры
 document.addEventListener("keyup", function (event) {
   if (event.key != "Enter" && event.key != "Delete")
     screen.innerHTML += event.key;
