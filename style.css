@@ -7,7 +7,6 @@
 }
 body {
   max-width: 450px;
-
   margin: 10vh auto;
 }
 .calc {
@@ -113,23 +112,65 @@ li[class="but"]:active {
   box-shadow: 0 0 0 rgb(2, 2, 2);
 }
 
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   * {
     font-size: 15px;
-    border-radius: 3px;
+    border-radius: 5px;
   }
   body {
-    max-width: 150px;
+    max-width: 300px;
     margin: 5vh auto;
   }
   .screen {
-    height: 10px;
+    height: 30px;
+    margin: 10px 10px 25px;
+    background-color: rgb(0, 0, 0);
+  }
+  .buttons {
+    margin: 10px;
+    grid-template-rows: repeat(4, 35px);
+    column-gap: 10px;
+    row-gap: 15px;
+  }
+  .operators {
+    grid-column-start: 1;
+    grid-column-end: 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+    row-gap: 15px;
+  }
+  .numbers {
+    grid-template-rows: repeat(4, 35px);
+    column-gap: 10px;
+    row-gap: 15px;
+  }
+  .aside {
+    grid-template-rows: repeat(3, 35px);
+    column-gap: 10px;
+    row-gap: 15px;
+  }
+}
+@media (max-width: 400px) {
+  .calc {
+    padding: 15px;
+  }
+  * {
+    font-size: 10px;
+    border-radius: 3px;
+  }
+  body {
+    max-width: 200px;
+    margin: 5vh auto;
+  }
+  .screen {
+    height: 15px;
     margin: 0 0 15px;
     background-color: rgb(0, 0, 0);
   }
   .buttons {
     margin: 0;
-    grid-template-rows: repeat(4, 20px);
+    grid-template-rows: repeat(4, 25px);
     column-gap: 5px;
     row-gap: 10px;
   }
@@ -142,18 +183,13 @@ li[class="but"]:active {
     row-gap: 10px;
   }
   .numbers {
-    grid-template-rows: repeat(4, 20px);
+    grid-template-rows: repeat(4, 25px);
     column-gap: 5px;
     row-gap: 10px;
   }
   .aside {
-    grid-template-rows: repeat(3, 20px);
+    grid-template-rows: repeat(3, 25px);
     column-gap: 5px;
     row-gap: 10px;
-  }
-}
-@media (max-width: 400px) {
-  .calc {
-    padding: 10px;
   }
 }
