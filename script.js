@@ -19,10 +19,15 @@ buttons.addEventListener("click", (event) => {
     result = eval(screen.innerHTML);
     screen.innerHTML = result;
   }
-  if (event.target.id === "cleanC" || event.target.id === "cleanCe") {
+  if (event.target.id === "cleanCe") {
     result = null;
     screen.innerHTML = result;
   }
+  if (event.target.id === "cleanC") {
+    screen.innerHTML = screen.innerHTML.slice(0, -1);
+  }
+
+  console.log(screen.innerHTML[screen.innerHTML.length - 1]);
 });
 // считывание клавиш клавиатуры
 document.addEventListener("keyup", function (event) {
