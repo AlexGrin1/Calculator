@@ -143,10 +143,14 @@ li[class="button"]:active {
   }
 }
 @media (max-width: 400px) {
+  html {
+    background-color: cornflowerblue;
+  }
   .calc {
-    padding: 15px;
+    padding: 0;
   }
   body {
+    margin: 15vh auto;
     width: 100vw;
     border-radius: 3px;
   }
