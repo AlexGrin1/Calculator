@@ -155,8 +155,9 @@ li .button:active {
     border-radius: 3px;
   }
   .screen {
-    height: 25px;
+    height: 45px;
     margin: 10 10 15px;
     background-color: rgb(0, 0, 0);
+    font-size: 20px;
   }
 }
