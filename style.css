@@ -1,13 +1,13 @@
 * {
-  border-radius: 7px;
-  font-size: 30px;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  list-style: none;
-  color: rgb(63, 62, 62);
 }
 body {
   max-width: 450px;
   margin: 10vh auto;
+  color: rgb(63, 62, 62);
+  font-size: 30px;
+  list-style: none;
+  border-radius: 7px;
 }
 .calc {
   text-decoration: none;
@@ -26,7 +26,7 @@ body {
   overflow: hidden;
   color: white;
 }
-.buttons {
+.buttons_block {
   margin: 20px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -73,7 +73,7 @@ body {
   grid-row-start: 3;
   grid-row-end: 5;
 }
-.but {
+.button {
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
@@ -87,7 +87,7 @@ body {
   align-items: center;
   box-shadow: 0 0 5px black;
 }
-li[class="but"]:hover {
+li[class="button"]:hover {
   background-color: rgb(8, 167, 8);
   color: white;
   cursor: pointer;
@@ -102,25 +102,23 @@ li[class="operator"]:hover {
 }
 div[class="operator"]:active,
 li[class="operator"]:active,
-li[class="but"]:active {
+li[class="button"]:active {
   box-shadow: 0 0 0 rgb(2, 2, 2);
 }
 
 @media (max-width: 750px) {
-  * {
-    font-size: 15px;
-    border-radius: 5px;
-  }
   body {
     max-width: 300px;
     margin: 5vh auto;
+    font-size: 15px;
+    border-radius: 5px;
   }
   .screen {
     height: 30px;
     margin: 10px 10px 25px;
     background-color: rgb(0, 0, 0);
   }
-  .buttons {
+  .buttons_block {
     margin: 10px;
     grid-template-rows: repeat(4, 35px);
     column-gap: 10px;
@@ -149,41 +147,13 @@ li[class="but"]:active {
   .calc {
     padding: 15px;
   }
-  * {
-    font-size: 10px;
+  body {
+    width: 100vw;
     border-radius: 3px;
   }
-  body {
-    max-width: 200px;
-    margin: 5vh auto;
-  }
   .screen {
-    height: 15px;
-    margin: 0 0 15px;
+    height: 25px;
+    margin: 10 10 15px;
     background-color: rgb(0, 0, 0);
-  }
-  .buttons {
-    margin: 0;
-    grid-template-rows: repeat(4, 25px);
-    column-gap: 5px;
-    row-gap: 10px;
-  }
-  .operators {
-    grid-column-start: 1;
-    grid-column-end: 5;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 5px;
-    row-gap: 10px;
-  }
-  .numbers {
-    grid-template-rows: repeat(4, 25px);
-    column-gap: 5px;
-    row-gap: 10px;
-  }
-  .aside {
-    grid-template-rows: repeat(3, 25px);
-    column-gap: 5px;
-    row-gap: 10px;
   }
 }

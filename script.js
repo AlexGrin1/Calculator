@@ -10,7 +10,7 @@ buttons.addEventListener("click", (event) => {
       arrayOperators.push(event.target.innerHTML);
       screen.innerHTML += event.target.innerHTML;
     }
-    if (event.target.className === "but") {
+    if (event.target.className === "button") {
       arrayNumbers.push(event.target.innerHTML);
       screen.innerHTML += event.target.innerHTML;
     }
