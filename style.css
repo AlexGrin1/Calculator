@@ -24,14 +24,8 @@ body {
   padding: 10px;
   background-color: rgb(0, 0, 0);
   overflow: hidden;
-}
-.scr {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
   color: white;
 }
-
 .buttons {
   margin: 20px;
   display: grid;

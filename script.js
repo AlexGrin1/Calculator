@@ -1,5 +1,5 @@
 const buttons = document.querySelector(".calc");
-const screen = document.querySelector(".scr");
+const screen = document.querySelector(".screen");
 let arrayNumbers = [];
 let arrayOperators = [];
 let result;
