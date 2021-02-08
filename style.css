@@ -87,22 +87,22 @@ body {
   align-items: center;
   box-shadow: 0 0 5px black;
 }
-li[class="button"]:hover {
+.button:hover {
   background-color: rgb(8, 167, 8);
   color: white;
   cursor: pointer;
   transition: 0.2s;
 }
-div[class="operator"]:hover,
-li[class="operator"]:hover {
+div .operator:hover,
+li .operator:hover {
   background-color: rgb(223, 139, 29);
   color: white;
   cursor: pointer;
   transition: 0.2s;
 }
-div[class="operator"]:active,
-li[class="operator"]:active,
-li[class="button"]:active {
+div .operator:active,
+li .operator:active,
+li .button:active {
   box-shadow: 0 0 0 rgb(2, 2, 2);
 }
 @media (max-width: 750px) {
