@@ -105,7 +105,6 @@ li[class="operator"]:active,
 li[class="button"]:active {
   box-shadow: 0 0 0 rgb(2, 2, 2);
 }
-
 @media (max-width: 750px) {
   body {
     max-width: 300px;
