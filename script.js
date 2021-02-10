@@ -4,26 +4,40 @@ let result;
 let term1;
 let term2;
 let operator;
+function resultEnd() {
+  switch (true) {
+    case operator === "+":
+      result = +term1 + +term2;
+      break;
+    case operator === "-":
+      result = +term1 - +term2;
+      break;
+    case operator === "*":
+      result = +term1 * +term2;
+      break;
+    case operator === "/":
+      result = +term1 / +term2;
+      break;
+  }
+}
 buttons.addEventListener("click", (event) => {
   if (event.target.tagName === "LI") {
     if (event.target.className === "button" && operator === undefined) {
       screen.innerHTML += event.target.innerHTML;
-      term1 = +event.target.innerHTML;
+      term1 = event.target.innerHTML;
     }
     if (event.target.className === "operator") {
-      screen.innerHTML = null;
-      screen.innerHTML = event.target.innerHTML;
+      screen.innerHTML += event.target.innerHTML;
       operator = event.target.innerHTML;
     }
     if (event.target.className === "button" && operator != undefined) {
-      screen.innerHTML = event.target.innerHTML;
-      term2 = +event.target.innerHTML;
+      screen.innerHTML += event.target.innerHTML;
+      term2 = event.target.innerHTML;
     }
   }
 
   if (event.target.id === "itemEnd") {
-    result = Number(term1 + operator + term2);
-    console.log(typeof result);
+    resultEnd();
     screen.innerHTML = result;
   }
   if (event.target.id === "cleanCe") {
