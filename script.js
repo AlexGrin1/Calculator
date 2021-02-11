@@ -1,8 +1,8 @@
 const buttons = document.querySelector(".calc");
 const screen = document.querySelector(".screen");
 let result;
-let term1;
-let term2;
+let term1 = 0;
+let term2 = 0;
 let operator;
 function resultEnd() {
   switch (true) {
@@ -22,17 +22,26 @@ function resultEnd() {
 }
 buttons.addEventListener("click", (event) => {
   if (event.target.tagName === "LI") {
-    if (event.target.className === "button" && operator === undefined) {
-      screen.innerHTML += event.target.innerHTML;
-      term1 = event.target.innerHTML;
-    }
-    if (event.target.className === "operator") {
-      screen.innerHTML += event.target.innerHTML;
-      operator = event.target.innerHTML;
-    }
-    if (event.target.className === "button" && operator != undefined) {
-      screen.innerHTML += event.target.innerHTML;
-      term2 = event.target.innerHTML;
+    switch (true) {
+      case event.target.className === "button" && operator === undefined:
+        screen.innerHTML += event.target.innerHTML;
+        term1 += event.target.innerHTML;
+        break;
+      case event.target.className === "operator" && operator === undefined:
+        screen.innerHTML += event.target.innerHTML;
+        operator = event.target.innerHTML;
+        break;
+      case event.target.className === "button" && operator != undefined:
+        screen.innerHTML += event.target.innerHTML;
+        term2 += event.target.innerHTML;
+        break;
+      case event.target.className === "operator" && operator != undefined:
+        resultEnd();
+        term1 = result;
+        term2 = 0;
+        screen.innerHTML += event.target.innerHTML;
+        operator = event.target.innerHTML;
+        break;
     }
   }
 
@@ -42,8 +51,8 @@ buttons.addEventListener("click", (event) => {
   }
   if (event.target.id === "cleanCe") {
     result = null;
-    term1 = undefined;
-    term2 = undefined;
+    term1 = 0;
+    term2 = 0;
     operator = undefined;
     screen.innerHTML = result;
   }
@@ -78,6 +87,7 @@ buttons.addEventListener("click", (event) => {
 
   console.log(screen.innerHTML[screen.innerHTML.length - 1]);
 });
+
 // считывание клавиш клавиатуры
 document.addEventListener("keyup", function (event) {
   if (event.key != "Enter" && event.key != "Delete")
