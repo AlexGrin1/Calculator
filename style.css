@@ -73,7 +73,8 @@ body {
   grid-row-start: 3;
   grid-row-end: 5;
 }
-.button {
+.button,
+.point {
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: center;
@@ -93,6 +94,7 @@ body {
   cursor: pointer;
   transition: 0.2s;
 }
+.point:hover,
 div .operator:hover,
 li .operator:hover {
   background-color: rgb(223, 139, 29);
@@ -100,6 +102,7 @@ li .operator:hover {
   cursor: pointer;
   transition: 0.2s;
 }
+.point:active,
 div .operator:active,
 li .operator:active,
 li .button:active {

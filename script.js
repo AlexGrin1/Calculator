@@ -1,9 +1,11 @@
 const buttons = document.querySelector(".calc");
 const screen = document.querySelector(".screen");
-let result;
+let result = 0;
 let term1 = 0;
 let term2 = 0;
 let operator;
+let point = 0;
+let i = 0;
 function resultEnd() {
   switch (true) {
     case operator === "+":
@@ -21,38 +23,81 @@ function resultEnd() {
   }
 }
 buttons.addEventListener("click", (event) => {
+  if (i < 1) {
+    screen.innerHTML = null;
+    i = 1;
+  }
   if (event.target.tagName === "LI") {
     switch (true) {
       case event.target.className === "button" && operator === undefined:
-        screen.innerHTML += event.target.innerHTML;
-        term1 += event.target.innerHTML;
+        if (
+          event.target.id === "point" &&
+          screen.innerHTML != undefined &&
+          point === 0
+        ) {
+          screen.innerHTML += event.target.innerHTML;
+          point++;
+        }
+        if (event.target.id != "point") {
+          screen.innerHTML += event.target.innerHTML;
+        }
         break;
-      case event.target.className === "operator" && operator === undefined:
-        screen.innerHTML += event.target.innerHTML;
+      case event.target.className === "operator" &&
+        operator === undefined &&
+        screen.innerHTML != null:
+        term1 = screen.innerHTML;
         operator = event.target.innerHTML;
+        screen.innerHTML = event.target.innerHTML;
+        point = 0;
+        i = 0;
         break;
       case event.target.className === "button" && operator != undefined:
-        screen.innerHTML += event.target.innerHTML;
-        term2 += event.target.innerHTML;
+        if (event.target.id === "point" && term1 != 0 && point === 0) {
+          screen.innerHTML += event.target.innerHTML;
+          point++;
+        }
+        if (event.target.id != "point") {
+          screen.innerHTML += event.target.innerHTML;
+        }
         break;
-      case event.target.className === "operator" && operator != undefined:
+      case event.target.className === "operator" &&
+        operator != undefined &&
+        screen.innerHTML != null:
+        term2 = screen.innerHTML;
         resultEnd();
         term1 = result;
         term2 = 0;
-        screen.innerHTML += event.target.innerHTML;
+        point = 0;
+        i = 0;
+        screen.innerHTML = event.target.innerHTML;
         operator = event.target.innerHTML;
+        break;
+      case event.target.className === "operator" &&
+        operator != undefined &&
+        term1 != 0 &&
+        term2 === 0:
+        screen.innerHTML = event.target.innerHTML;
+        operator = event.target.innerHTML;
+        point = 0;
+        i = 0;
         break;
     }
   }
 
   if (event.target.id === "itemEnd") {
+    term2 = screen.innerHTML;
     resultEnd();
     screen.innerHTML = result;
+    point = 0;
+    term2 = 0;
+    operator = undefined;
   }
   if (event.target.id === "cleanCe") {
-    result = null;
+    result = 0;
     term1 = 0;
     term2 = 0;
+    point = 0;
+    i = 0;
     operator = undefined;
     screen.innerHTML = result;
   }
