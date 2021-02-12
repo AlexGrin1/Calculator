@@ -4,89 +4,111 @@ let result = 0;
 let term1 = 0;
 let term2 = 0;
 let operator;
+//счетчик нажатых кнопок (максимум 1)
 let point = 0;
+//для удаления значений на экране в момент ввода новых
 let i = 0;
+// первичный блокиратор,  ввода операторов и точки.
+let count = 0;
+
 function resultEnd() {
   switch (true) {
-    case operator === "+":
+    case operator == "+":
       result = +term1 + +term2;
       break;
-    case operator === "-":
+    case operator == "-":
       result = +term1 - +term2;
       break;
-    case operator === "*":
+    case operator == "*":
       result = +term1 * +term2;
       break;
-    case operator === "/":
+    case operator == "/":
       result = +term1 / +term2;
       break;
   }
 }
 buttons.addEventListener("click", (event) => {
-  if (i < 1) {
-    screen.innerHTML = null;
-    i = 1;
-  }
   if (event.target.tagName === "LI") {
-    switch (true) {
-      case event.target.className === "button" && operator === undefined:
-        if (
-          event.target.id === "point" &&
-          screen.innerHTML != undefined &&
-          point === 0
-        ) {
-          screen.innerHTML += event.target.innerHTML;
-          point++;
-        }
-        if (event.target.id != "point") {
-          screen.innerHTML += event.target.innerHTML;
-        }
-        break;
-      case event.target.className === "operator" &&
-        operator === undefined &&
-        screen.innerHTML != null:
-        term1 = screen.innerHTML;
-        operator = event.target.innerHTML;
-        screen.innerHTML = event.target.innerHTML;
-        point = 0;
-        i = 0;
-        break;
-      case event.target.className === "button" && operator != undefined:
-        if (event.target.id === "point" && term1 != 0 && point === 0) {
-          screen.innerHTML += event.target.innerHTML;
-          point++;
-        }
-        if (event.target.id != "point") {
-          screen.innerHTML += event.target.innerHTML;
-        }
-        break;
-      case event.target.className === "operator" &&
-        operator != undefined &&
-        screen.innerHTML != null:
-        term2 = screen.innerHTML;
-        resultEnd();
-        term1 = result;
-        term2 = 0;
-        point = 0;
-        i = 0;
-        screen.innerHTML = event.target.innerHTML;
-        operator = event.target.innerHTML;
-        break;
-      case event.target.className === "operator" &&
-        operator != undefined &&
-        term1 != 0 &&
-        term2 === 0:
-        screen.innerHTML = event.target.innerHTML;
-        operator = event.target.innerHTML;
-        point = 0;
-        i = 0;
-        break;
+    // блокиратор ввода операторов и точки. Принимает только цифру пока count=0 или повторные операторы
+    if (
+      (event.target.className === "button" && event.target.id != "point") ||
+      count > 0 ||
+      operator != undefined
+    ) {
+      // удаляет первичный "0" на экране,  а далее при дальнейшем наборе очищает экран в момент ввода нового операнда или оператора.
+      if (i < 1) {
+        screen.innerHTML = null;
+        i = 1;
+      }
+
+      switch (true) {
+        // блок 1 -первый ввод
+
+        case event.target.className === "button" && operator === undefined:
+          if (
+            event.target.id === "point" &&
+            screen.innerHTML != undefined &&
+            point === 0
+          ) {
+            screen.innerHTML += event.target.innerHTML;
+            point++;
+          }
+          if (event.target.id != "point") {
+            screen.innerHTML += event.target.innerHTML;
+            count = 1;
+          }
+          break;
+        case event.target.className === "operator" &&
+          operator === undefined &&
+          screen.innerHTML != null:
+          term1 = screen.innerHTML;
+          operator = event.target.innerHTML;
+          screen.innerHTML = event.target.innerHTML;
+          point = 0;
+          i = 0;
+          break;
+
+        // блок 2 - повтроный ввод
+        case event.target.className === "button" && operator != undefined:
+          if (event.target.id === "point" && term1 != 0 && point === 0) {
+            screen.innerHTML += event.target.innerHTML;
+            point++;
+          }
+          if (event.target.id != "point") {
+            screen.innerHTML += event.target.innerHTML;
+            count = 1;
+          }
+          break;
+        case event.target.className === "operator" &&
+          operator != undefined &&
+          screen.innerHTML != null:
+          term2 = screen.innerHTML;
+          resultEnd();
+          term1 = result;
+          term2 = 0;
+          point = 0;
+          i = 0;
+          screen.innerHTML = event.target.innerHTML;
+          console.log(result);
+          break;
+        case event.target.className === "operator" &&
+          operator != undefined &&
+          term1 != 0 &&
+          term2 === 0:
+          screen.innerHTML = event.target.innerHTML;
+          operator = event.target.innerHTML;
+          point = 0;
+          i = 0;
+          console.log(result);
+          break;
+      }
     }
   }
 
   if (event.target.id === "itemEnd") {
     term2 = screen.innerHTML;
     resultEnd();
+    console.log(result);
     screen.innerHTML = result;
     point = 0;
     term2 = 0;
@@ -97,6 +119,7 @@ buttons.addEventListener("click", (event) => {
     term1 = 0;
     term2 = 0;
     point = 0;
+    count = 0;
     i = 0;
     operator = undefined;
     screen.innerHTML = result;
