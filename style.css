@@ -1,5 +1,6 @@
 * {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  border-radius: 7px;
 }
 body {
   max-width: 450px;
@@ -7,7 +8,6 @@ body {
   color: rgb(63, 62, 62);
   font-size: 30px;
   list-style: none;
-  border-radius: 7px;
 }
 .calc {
   text-decoration: none;
