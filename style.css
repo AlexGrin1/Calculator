@@ -1,6 +1,5 @@
 * {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
-  border-radius: 7px;
 }
 body {
   max-width: 450px;
@@ -8,6 +7,11 @@ body {
   color: rgb(63, 62, 62);
   font-size: 30px;
   list-style: none;
+}
+main,
+div,
+li {
+  border-radius: 6px;
 }
 .calc {
   text-decoration: none;
@@ -113,7 +117,11 @@ li .button:active {
     max-width: 300px;
     margin: 5vh auto;
     font-size: 15px;
-    border-radius: 5px;
+  }
+  main,
+  div,
+  li {
+    border-radius: 4px;
   }
   .screen {
     height: 30px;
@@ -155,6 +163,9 @@ li .button:active {
   body {
     margin: 15vh auto;
     width: 100vw;
+  }
+  div,
+  li {
     border-radius: 3px;
   }
   .screen {
