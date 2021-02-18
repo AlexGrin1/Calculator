@@ -4,8 +4,8 @@ const screen = document.querySelector(".screen");
 let term1 = "";
 let term2 = "";
 let operator;
-let i = 0;
-let count = 0;
+let cleanerScreenBeforeInput = 0;
+let blokedOperatorInput = 0;
 let lastStepMemory;
 let screenMemory = 0;
 
@@ -37,8 +37,8 @@ function cleanAll() {
   screenMemory = 0;
   lastStepMemory = undefined;
   operator = undefined;
-  i = 0;
-  count = 0;
+  cleanerScreenBeforeInput = 0;
+  blokedOperatorInput = 0;
 }
 
 buttons.addEventListener("click", (event) => {
@@ -63,7 +63,7 @@ buttons.addEventListener("click", (event) => {
       }
       screen.innerHTML += e.target.innerHTML;
       screenMemory = screen.innerHTML;
-      count = 1;
+      blokedOperatorInput = 1;
     } else if (
       (lastStepMemory === "operator" && isPointButton) ||
       (isPointButton && term1 === "" && lastStepMemory !== "button")
@@ -73,11 +73,16 @@ buttons.addEventListener("click", (event) => {
     }
   }
 
-  if (isNumberButton || count > 0 || operator !== undefined || isButtonCe) {
+  if (
+    isNumberButton ||
+    blokedOperatorInput > 0 ||
+    operator !== undefined ||
+    isButtonCe
+  ) {
     if (isNumberButton) {
-      if (i < 1) {
+      if (cleanerScreenBeforeInput < 1) {
         screen.innerHTML = null;
-        i = 1;
+        cleanerScreenBeforeInput = 1;
       }
       inputNumber(event);
     } else if (
@@ -88,17 +93,17 @@ buttons.addEventListener("click", (event) => {
     ) {
       if (lastStepMemory === "button" && term1 === "") {
         term1 = screen.innerHTML;
-        i = 0;
+        cleanerScreenBeforeInput = 0;
         point = 0;
-        count = 0;
+        blokedOperatorInput = 0;
       }
       if (lastStepMemory === "button" && term1 !== "") {
         term2 = screen.innerHTML;
         resultEnd();
         screen.innerHTML = term1;
-        i = 0;
+        cleanerScreenBeforeInput = 0;
         point = 0;
-        count = 0;
+        blokedOperatorInput = 0;
       }
       operator = event.target.innerHTML;
     } else if (isButtonC) {
