@@ -85,6 +85,7 @@ li {
   align-items: center;
   box-shadow: 0 0 5px black;
 }
+.special_operator,
 .operator {
   background-color: rgb(255, 255, 255);
   display: flex;
@@ -99,16 +100,16 @@ li {
   transition: 0.2s;
 }
 #point:hover,
-div .operator:hover,
-li .operator:hover {
+.special_operator:hover,
+.operator:hover {
   background-color: rgb(223, 139, 29);
   color: white;
   cursor: pointer;
   transition: 0.2s;
 }
 #point:active,
-div .operator:active,
-li .operator:active,
+.special_operator,
+.operator:active,
 li .button:active {
   box-shadow: 0 0 0 rgb(2, 2, 2);
 }

@@ -1,37 +1,136 @@
 const buttons = document.querySelector(".calc");
 const screen = document.querySelector(".screen");
 
-let result = 0;
-let term1 = 0;
-let term2 = 0;
-let operator;
-//счетчик нажатых точек (максимум 1)
-let point = 0;
-//для удаления значений на экране в момент ввода новых
-let i = 0;
-// первичный блокиратор,  ввода операторов и точки.
-let count = 0;
-//память, какая кнопка была нажата на предыдущей итерации
-let lastStepMemory;
-// память записи с экрана (дейсттвует до ввода оператора, далее содержимое присваетвается в term2)
-let screenMemory = 0;
+let term1 = "",
+  term2 = "",
+  operator,
+  i = 0,
+  count = 0,
+  lastStepMemory,
+  screenMemory = 0;
 
+function infinityOnNull() {
+  if (term1 === Infinity) {
+    term1 = 0;
+  }
+}
 function resultEnd() {
   switch (true) {
-    case operator == "+":
-      result = +term1 + +term2;
+    case operator === "+":
+      term1 = +term1 + +term2;
+      infinityOnNull();
       break;
-    case operator == "-":
-      result = +term1 - +term2;
+    case operator === "-":
+      term1 = +term1 - +term2;
+      infinityOnNull();
       break;
-    case operator == "*":
-      result = +term1 * +term2;
+    case operator === "*":
+      term1 = +term1 * +term2;
+      infinityOnNull();
       break;
-    case operator == "/":
-      result = +term1 / +term2;
+    case operator === "/":
+      term1 = +term1 / +term2;
+      infinityOnNull();
       break;
   }
 }
+function cleanAll() {
+  term1 = "";
+  term2 = "";
+  screenMemory = 0;
+  lastStepMemory = undefined;
+  operator = undefined;
+  i = 0;
+  count = 0;
+}
+
+buttons.addEventListener("click", (event) => {
+  const number = event.target.className === "button",
+    operBut = event.target.className === "operator",
+    pointBut = event.target.id === "point",
+    buttonC = event.target.id === "cleanC",
+    buttonCe = event.target.id === "cleanCe",
+    itemEnd = event.target.id === "itemEnd",
+    itemNull = event.target.id === "itemNull";
+
+  function inputNumber(e) {
+    switch (true) {
+      case pointBut &&
+        screen.innerHTML.indexOf(".") === -1 &&
+        lastStepMemory !== "operator":
+        screen.innerHTML += e.target.innerHTML;
+        screenMemory = screen.innerHTML;
+        break;
+      case !pointBut:
+        if (screen.innerHTML === "0") {
+          screen.innerHTML = null;
+        }
+        screen.innerHTML += e.target.innerHTML;
+        screenMemory = screen.innerHTML;
+        count = 1;
+        break;
+      case (lastStepMemory === "operator" && pointBut) ||
+        (pointBut && term1 === "" && lastStepMemory !== "button"):
+        screen.innerHTML = "0" + e.target.innerHTML;
+        screenMemory = screen.innerHTML;
+        break;
+    }
+  }
+
+  if (number || count > 0 || operator !== undefined || buttonCe) {
+    switch (true) {
+      case number:
+        if (i < 1) {
+          screen.innerHTML = null;
+          i = 1;
+        }
+        inputNumber(event);
+        break;
+      case operBut && !buttonC && !buttonCe && !itemEnd:
+        if (lastStepMemory === "button" && term1 === "") {
+          term1 = screen.innerHTML;
+          i = 0;
+          point = 0;
+          count = 0;
+        }
+        if (lastStepMemory === "button" && term1 !== "") {
+          term2 = screen.innerHTML;
+          resultEnd();
+          screen.innerHTML = term1;
+          i = 0;
+          point = 0;
+          count = 0;
+        }
+        operator = event.target.innerHTML;
+        break;
+      case buttonC:
+        screen.innerHTML = screen.innerHTML.slice(0, -1);
+        if (lastStepMemory != "operator") {
+          screenMemory = screen.innerHTML;
+        }
+        break;
+      case buttonCe:
+        cleanAll();
+        screen.innerHTML = 0;
+        break;
+      case itemEnd:
+        if (term1 !== "" && lastStepMemory === "button") {
+          term2 = screen.innerHTML;
+          resultEnd();
+          screen.innerHTML = term1;
+          term1 = "";
+          cleanAll();
+        } else {
+          cleanAll();
+          screen.innerHTML = 0;
+        }
+        break;
+    }
+    lastStepMemory = event.target.className;
+  }
+});
+
+/*
 buttons.addEventListener("click", (event) => {
   console.log("Текущий оператор - " + operator);
 
@@ -147,11 +246,13 @@ buttons.addEventListener("click", (event) => {
     term2 = screenMemory;
     resultEnd();
     screen.innerHTML = result;
-    term1 = result;
+    term1 = 0;
     point = 0;
     term2 = 0;
     screenMemory = 0;
     operator = undefined;
+    i = 0;
+    count = 0;
   }
   if (event.target.id === "cleanCe") {
     result = 0;
@@ -172,7 +273,7 @@ buttons.addEventListener("click", (event) => {
     }
   }
 });
-
+*/
 /*
 
 
