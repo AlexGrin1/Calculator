@@ -9,13 +9,6 @@ let blokedOperatorInput = 0;
 let lastStepMemory;
 let screenMemory = 0;
 
-function checkDivisionByZero() {
-  if (term2 === "0" && operator === "/") {
-    term1 = " Division by zero is undefined";
-  } else if (isNaN(term1) === true) {
-    term1 = "Error. Press CE and enter a new expression";
-  }
-}
 function resultEnd() {
   switch (operator) {
     case "+":
@@ -31,10 +24,11 @@ function resultEnd() {
       if (term2 !== "0") {
         term1 = +term1 / +term2;
       }
-      checkDivisionByZero();
+      if (term2 === "0") {
+        term1 = " Division by zero is undefined";
+      }
       break;
   }
-  checkDivisionByZero();
 }
 function cleanAll() {
   term1 = "";
@@ -47,6 +41,7 @@ function cleanAll() {
 }
 
 buttons.addEventListener("click", (event) => {
+  console.log(event.target);
   const isNumberButton = event.target.className === "button";
   const isOperatorButton = event.target.className === "operator";
   const isPointButton = event.target.id === "point";
@@ -90,21 +85,24 @@ buttons.addEventListener("click", (event) => {
         cleanerScreenBeforeInput = 1;
       }
       inputNumber(event);
-    } else if (isOperatorButton) {
-      if (isOperatorButton && !isButtonC && !isButtonCe && !isButtonResult) {
-        if (lastStepMemory === "button" && term1 === "") {
-          term1 = screen.innerHTML;
-          cleanerScreenBeforeInput = 0;
-          blokedOperatorInput = 0;
-        } else if (lastStepMemory === "button" && term1 !== "") {
-          term2 = screen.innerHTML;
-          resultEnd();
-          screen.innerHTML = term1;
-          cleanerScreenBeforeInput = 0;
-          blokedOperatorInput = 0;
-        }
-        operator = event.target.innerHTML;
+    } else if (
+      isOperatorButton &&
+      !isButtonC &&
+      !isButtonCe &&
+      !isButtonResult
+    ) {
+      if (lastStepMemory === "button" && term1 === "") {
+        term1 = screen.innerHTML;
+        cleanerScreenBeforeInput = 0;
+        blokedOperatorInput = 0;
+      } else if (lastStepMemory === "button" && term1 !== "") {
+        term2 = screen.innerHTML;
+        resultEnd();
+        screen.innerHTML = term1;
+        cleanerScreenBeforeInput = 0;
+        blokedOperatorInput = 0;
       }
+      operator = event.target.innerHTML;
     } else if (isButtonC) {
       screen.innerHTML = screen.innerHTML.slice(0, -1);
       if (lastStepMemory != "operator") {
@@ -114,6 +112,7 @@ buttons.addEventListener("click", (event) => {
       cleanAll();
       screen.innerHTML = 0;
     } else if (isButtonResult) {
+      console.log("TUTS");
       if (term1 !== "" && lastStepMemory === "button") {
         term2 = screen.innerHTML;
         resultEnd();
@@ -123,6 +122,6 @@ buttons.addEventListener("click", (event) => {
       }
       cleanAll();
     }
+    lastStepMemory = event.target.className;
   }
-  lastStepMemory = event.target.className;
 });
