@@ -26,7 +26,7 @@ function resultEnd() {
         term1 = +term1 / +term2;
       }
       if (term2 === "0") {
-        screen.innerHTML = " Division by zero is undefined";
+        term1 = " Division by zero is undefined";
         needToClear = true;
       }
       break;
@@ -87,6 +87,7 @@ buttons.addEventListener("click", (event) => {
         term2 = screen.innerHTML;
         resultEnd();
         if (needToClear === true) {
+          screen.innerHTML = term1;
           cleanAll();
         } else {
           screen.innerHTML = term1;
