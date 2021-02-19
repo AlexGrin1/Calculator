@@ -10,8 +10,8 @@ let lastStepMemory;
 let screenMemory = 0;
 
 function infinityOnNull() {
-  if (term1 === Infinity) {
-    term1 = "Разделить на ноль нельзя";
+  if (term1 === NaN) {
+    term1 = " ноль нельзя";
   }
 }
 function resultEnd() {
@@ -26,7 +26,9 @@ function resultEnd() {
       term1 = +term1 * +term2;
       break;
     case "/":
-      term1 = +term1 / +term2;
+      if (term2 !== "0") {
+        term1 = +term1 / +term2;
+      } else term1 = "Разделить на ноль нельзя";
       break;
   }
   infinityOnNull();
@@ -51,6 +53,12 @@ buttons.addEventListener("click", (event) => {
 
   function inputNumber(e) {
     if (
+      (lastStepMemory === "operator" && isPointButton) ||
+      (isPointButton && term1 === "" && lastStepMemory !== "button")
+    ) {
+      screen.innerHTML = "0" + e.target.innerHTML;
+      screenMemory = screen.innerHTML;
+    } else if (
       isPointButton &&
       screen.innerHTML.indexOf(".") === -1 &&
       lastStepMemory !== "operator"
@@ -64,12 +72,6 @@ buttons.addEventListener("click", (event) => {
       screen.innerHTML += e.target.innerHTML;
       screenMemory = screen.innerHTML;
       blokedOperatorInput = 1;
-    } else if (
-      (lastStepMemory === "operator" && isPointButton) ||
-      (isPointButton && term1 === "" && lastStepMemory !== "button")
-    ) {
-      screen.innerHTML = "0" + e.target.innerHTML;
-      screenMemory = screen.innerHTML;
     }
   }
 
@@ -94,7 +96,6 @@ buttons.addEventListener("click", (event) => {
       if (lastStepMemory === "button" && term1 === "") {
         term1 = screen.innerHTML;
         cleanerScreenBeforeInput = 0;
-        point = 0;
         blokedOperatorInput = 0;
       }
       if (lastStepMemory === "button" && term1 !== "") {
@@ -102,7 +103,6 @@ buttons.addEventListener("click", (event) => {
         resultEnd();
         screen.innerHTML = term1;
         cleanerScreenBeforeInput = 0;
-        point = 0;
         blokedOperatorInput = 0;
       }
       operator = event.target.innerHTML;
