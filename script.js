@@ -9,9 +9,11 @@ let blokedOperatorInput = 0;
 let lastStepMemory;
 let screenMemory = 0;
 
-function infinityOnNull() {
-  if (term1 === NaN) {
-    term1 = " ноль нельзя";
+function checkDivisionByZero() {
+  if (term2 === "0" && operator === "/") {
+    term1 = " Division by zero is undefined";
+  } else if (isNaN(term1) === true) {
+    term1 = "Error. Press CE and enter a new expression";
   }
 }
 function resultEnd() {
@@ -28,10 +30,11 @@ function resultEnd() {
     case "/":
       if (term2 !== "0") {
         term1 = +term1 / +term2;
-      } else term1 = "Разделить на ноль нельзя";
+      }
+      checkDivisionByZero();
       break;
   }
-  infinityOnNull();
+  checkDivisionByZero();
 }
 function cleanAll() {
   term1 = "";
@@ -87,25 +90,21 @@ buttons.addEventListener("click", (event) => {
         cleanerScreenBeforeInput = 1;
       }
       inputNumber(event);
-    } else if (
-      isOperatorButton &&
-      !isButtonC &&
-      !isButtonCe &&
-      !isButtonResult
-    ) {
-      if (lastStepMemory === "button" && term1 === "") {
-        term1 = screen.innerHTML;
-        cleanerScreenBeforeInput = 0;
-        blokedOperatorInput = 0;
+    } else if (isOperatorButton) {
+      if (isOperatorButton && !isButtonC && !isButtonCe && !isButtonResult) {
+        if (lastStepMemory === "button" && term1 === "") {
+          term1 = screen.innerHTML;
+          cleanerScreenBeforeInput = 0;
+          blokedOperatorInput = 0;
+        } else if (lastStepMemory === "button" && term1 !== "") {
+          term2 = screen.innerHTML;
+          resultEnd();
+          screen.innerHTML = term1;
+          cleanerScreenBeforeInput = 0;
+          blokedOperatorInput = 0;
+        }
+        operator = event.target.innerHTML;
       }
-      if (lastStepMemory === "button" && term1 !== "") {
-        term2 = screen.innerHTML;
-        resultEnd();
-        screen.innerHTML = term1;
-        cleanerScreenBeforeInput = 0;
-        blokedOperatorInput = 0;
-      }
-      operator = event.target.innerHTML;
     } else if (isButtonC) {
       screen.innerHTML = screen.innerHTML.slice(0, -1);
       if (lastStepMemory != "operator") {
